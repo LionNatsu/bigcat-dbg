@@ -1,24 +1,10 @@
 # bigcat-dbg
 
-My debugging tools. Everyone is welcome to add new stuff!
+My debugging tools for Linux. Everyone is welcome to add new stuff!
 
-## Installation
+Use CMake to build and install them. There is [installation guide](INSTALL.md) for your information.
 
-First you should make a directory for building, say "build". Enter the directory.
-```
-mkdir build
-cd build
-```
-Use "cmake" to configure the building environment.
-```
-cmake ..
-```
-Now CMake generated the "Makefile", so...
-```
-make
-sudo make install
-```
-And everything is ready to go.
+Build dependencies: CMake(>= 3.2), GCC
 
 ## Commands
 
