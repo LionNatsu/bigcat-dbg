@@ -1,0 +1,6 @@
+# CMake
+/build/
+
+# Hidden files
+.*
+!.gitignore
