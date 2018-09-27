@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
     bool failed = false;
     void **p = malloc(num_shlib * sizeof(void *));
     for(int i = 0; i < num_shlib; i++) {
-        p[i] = dlopen(argv[1], RTLD_NOW);
+        p[i] = dlopen(argv[1 + i], RTLD_NOW);
         if(p[i] == NULL) {
             puts(dlerror());
             failed = true;
