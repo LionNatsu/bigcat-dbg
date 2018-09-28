@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
     }
     for(int i = num_shlib - 1; i >= 0; i--) {
         if(p[i] != NULL)
-            dlclose(p);
+            dlclose(p[i]);
     }
     return failed ? 1 : 0;
 }
