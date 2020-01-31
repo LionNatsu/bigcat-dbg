@@ -19,3 +19,10 @@ Loads `.so` (aka. Shared Objects or Shared Libraries) by `dlopen()` and unloads 
 Tips:
 1. You may use full paths.
 2. Try `LD_DEBUG=blah ...` to get more information.
+3. E.g. you may use 'libpthread.so' to refer to a library linked with -lpthread.
+
+### ldk-depends-lib
+```
+Usage: ldk-depends-lib a.out
+```
+It lists all dynamic linked libraries ("soname") the executable needs.
