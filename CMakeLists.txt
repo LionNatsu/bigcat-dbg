@@ -3,12 +3,13 @@ project(bigcat-dbg)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(load-shlib load-shlib.c)
-target_link_libraries(load-shlib dl)
+include_directories(BEFORE include)
+
+add_executable(ldk-load-lib src/ldk-load-lib.c)
+target_link_libraries(ldk-load-lib dl)
 
 install(
-    TARGETS
-    load-shlib
+    TARGETS ldk-load-lib
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
 )
