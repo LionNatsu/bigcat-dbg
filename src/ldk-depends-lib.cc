@@ -1,21 +1,47 @@
 #include "elf-dependency.hh"
+#include "ldso-path.hh"
 
+#include <dlfcn.h>
+#include <elf.h>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <stdexcept>
 
 int main(int argc, const char *argv[]) {
     std::cout << std::boolalpha;
-    if(argc <= 1) {
-        std::cerr << "ERROR: specify an ELF executable as the argument" << std::endl;
-        return 1;
+    std::string filename;
+    bool find_pathname = false;
+    switch(argc) {
+    case 2:
+        filename = argv[1];
+        break;
+    case 3:
+        find_pathname = true;
+        filename = argv[2];
+        if(argv[1] != std::string("-p"))
+            throw std::runtime_error("invalid arguments");
+        break;
+    default:
+        throw std::runtime_error("invalid arguments");
     }
-    std::fstream f(argv[1], std::ios::in | std::ios::binary);
+    std::fstream f(filename, std::ios::in | std::ios::binary);
     ElfDependency scanner([&](void *buf, size_t size) -> size_t {
         f.read((char *)buf, size);
         return f.gcount();
     });
     scanner.scan();
     for(const auto& so: scanner.so_depends) {
-        std::cout << so << std::endl;
+        if(find_pathname) {
+            const char *ld_library_path = secure_getenv("LD_LIBRARY_PATH");
+            load_env env {
+                .rpath = scanner.dyn_rpath,
+                .ld_library_path = ld_library_path? ld_library_path: "",
+                .runpath = scanner.dyn_runpath,
+                .no_default_lib = scanner.dyn_flags & DF_1_NODEFLIB,
+            };
+            std::cout << find_library(so, env) << std::endl;
+        } else
+            std::cout << so << std::endl;
     }
 }

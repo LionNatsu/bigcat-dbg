@@ -128,6 +128,12 @@ void ElfDependency::scan() {
         case DT_SONAME:
             so_name = lookup_table(H(dyn.d_un.d_val));
             break;
+        case DT_RUNPATH:
+            dyn_runpath = lookup_table(H(dyn.d_un.d_val));
+            break;
+        case DT_RPATH:
+            dyn_rpath = lookup_table(H(dyn.d_un.d_val));
+            break;
         case DT_FLAGS_1:
             dyn_flags = H(dyn.d_un.d_val);
             if(dyn_flags & DF_1_PIE) is_dyn = false;

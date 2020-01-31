@@ -1,5 +1,5 @@
-#ifndef P_VECTOR_ELF_DEPENDENCY_H
-#define P_VECTOR_ELF_DEPENDENCY_H
+#ifndef _ELF_DEPENDENCY_H_
+#define _ELF_DEPENDENCY_H_
 
 #include <stdexcept>
 #include <functional>
@@ -19,6 +19,8 @@ public:
 
     bool is_dyn;
     int dyn_flags;
+    std::string dyn_runpath;
+    std::string dyn_rpath;
     std::string so_name;
     std::set<std::string> so_depends;
 
@@ -42,4 +44,4 @@ private:
     unsigned char endian;
 };
 
-#endif //P_VECTOR_ELF_DEPENDENCY_H
+#endif
