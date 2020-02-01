@@ -40,7 +40,11 @@ int main(int argc, const char *argv[]) {
                 .runpath = scanner.dyn_runpath,
                 .no_default_lib = scanner.dyn_flags & DF_1_NODEFLIB,
             };
-            std::cout << find_library(so, env) << std::endl;
+            std::string path = find_library(so, env);
+            if(!path.empty())
+                std::cout << path << std::endl;
+            else
+                std::cerr << so << std::endl;
         } else
             std::cout << so << std::endl;
     }

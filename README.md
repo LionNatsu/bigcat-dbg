@@ -23,6 +23,16 @@ Tips:
 
 ### ldk-depends-lib
 ```
-Usage: ldk-depends-lib a.out
+Usage: ldk-depends-lib [-p] a.out
 ```
 It lists all dynamic linked libraries ("soname") the executable needs.
+
+You may use `-p` to get the full path. Standard error lists libraries which can not be found.
+
+However, you must configure CMake correctly to get proper results. This is because some systems
+also use other directories besides `/lib` and `/usr/lib`.
+
+Debian, for example:
+```
+cmake -DSYSTEM_DIRS='"/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu"' ..
+```
